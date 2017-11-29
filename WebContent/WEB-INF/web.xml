@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app 
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+  version="3.0">
+  <servlet>
+    <servlet-name>creerClient</servlet-name>
+    <servlet-class>com.sdzee.servlets.creationClient</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>creerClient</servlet-name>
+    <url-pattern>/creaClient</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>creerCommande</servlet-name>
+    <servlet-class>com.sdzee.servlets.creationCommande</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>creerCommande</servlet-name>
+    <url-pattern>/creaCommande</url-pattern>
+  </servlet-mapping>
+</web-app>
