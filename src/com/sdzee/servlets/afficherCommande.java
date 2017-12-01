@@ -12,16 +12,16 @@ import com.sdzee.beans.Client;
 import com.sdzee.beans.Commande;
 
 /**
- * Servlet implementation class creationCommande
+ * Servlet implementation class afficherCommande
  */
-@WebServlet( "/creationCommande" )
-public class creationCommande extends HttpServlet {
+@WebServlet( "/afficherCommande" )
+public class afficherCommande extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public creationCommande() {
+    public afficherCommande() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,13 +32,23 @@ public class creationCommande extends HttpServlet {
      */
     protected void doGet( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
+        final String VUE = "/WEB-INF/afficheCommande.jsp";
 
-        String erreur = "";
-        // final String ATT_NOM = "nom";
-        // final String ATT_PRENOM = "prenom";
-        // final String ATT_ADRESSE = "adresse";
-        // final String ATT_TELEPHONE = "telephone";
-        // final String ATT_EMAIL = "email";
+        final String CHAMP_NOM = "nomClient";
+        final String CHAMP_PRENOM = "prenomClient";
+        final String CHAMP_ADRESSE = "adresseClient";
+        final String CHAMP_TELEPHONE = "telephoneClient";
+        final String CHAMP_EMAIL = "emailClient";
+
+        final String CHAMPS_MONTANT = "montantCommande";
+        final String CHAMPS_MODEPAIEMENT = "modePaiementCommande";
+        final String CHAMPS_STATUSPAIEMENT = "statutPaiementCommande";
+        final String CHAMPS_MODELIVRAISON = "modeLivraisonCommande";
+        final String CHAMPS_LIVRAISONCOMMANDE = "statutLivraisonCommande";
+
+        final String FORMAT = "dd/MM/yy H:mm:ss";
+        boolean erreur = false;
+
         final String ATT_CLIENT = "client";
         final String ATT_COMMANDE = "commande";
         final String ATT_ERREUR = "erreur";
@@ -47,11 +57,11 @@ public class creationCommande extends HttpServlet {
          * Partie recuperation infos client
          * 
          */
-        String nom = request.getParameter( "nomClient" );
-        String prenom = request.getParameter( "prenomClient" );
-        String adresse = request.getParameter( "adresseClient" );
-        String telephone = request.getParameter( "telephoneClient" );
-        String email = request.getParameter( "emailClient" );
+        String nom = request.getParameter( CHAMP_NOM );
+        String prenom = request.getParameter( CHAMP_PRENOM );
+        String adresse = request.getParameter( CHAMP_ADRESSE );
+        String telephone = request.getParameter( CHAMP_TELEPHONE );
+        String email = request.getParameter( CHAMP_EMAIL );
 
         Client client = new Client();
 
@@ -67,15 +77,14 @@ public class creationCommande extends HttpServlet {
          */
 
         // recuperation Date
-        String format = "dd/MM/yy H:mm:ss";
 
-        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( format );
+        java.text.SimpleDateFormat formater = new java.text.SimpleDateFormat( FORMAT );
         java.util.Date date = new java.util.Date();
         String dateString = date.toString();
 
         // recuperation valeur montant commande
 
-        String mont = request.getParameter( "montantCommande" );
+        String mont = request.getParameter( CHAMPS_MONTANT );
 
         Double montant = 0.0;
 
@@ -90,10 +99,10 @@ public class creationCommande extends HttpServlet {
             }
         }
 
-        String modePaiement = request.getParameter( "modePaiementCommande" );
-        String statusPaiement = request.getParameter( "statutPaiementCommande" );
-        String modeLivraison = request.getParameter( "modeLivraisonCommande" );
-        String statusLivraison = request.getParameter( "statutLivraisonCommande" );
+        String modePaiement = request.getParameter( CHAMPS_MODEPAIEMENT );
+        String statusPaiement = request.getParameter( CHAMPS_STATUSPAIEMENT );
+        String modeLivraison = request.getParameter( CHAMPS_MODELIVRAISON );
+        String statusLivraison = request.getParameter( CHAMPS_LIVRAISONCOMMANDE );
 
         Commande commande = new Commande();
 
@@ -111,17 +120,21 @@ public class creationCommande extends HttpServlet {
 
         if ( request.getParameterMap().isEmpty() ) {
             // pas de parama
+            erreur = true;
             System.out.println( "aucun paramètres" );
         } else {
             if ( ( nom != null && nom.trim().isEmpty() ) || ( adresse != null && adresse.trim().isEmpty() )
-                    || ( telephone != null && telephone.trim().isEmpty() ) ) {
-                erreur = "Erreur - vous n\'avez pas remplis tous les champs obligatoires</br><a href=\"creaCcommande\">cliquer ici</a> pour acceder au formulaire de creation commande";
+                    || ( telephone != null && telephone.trim().isEmpty() )
+                    || ( modePaiement != null && modePaiement.trim().isEmpty() )
+                    || ( modeLivraison != null && modeLivraison.trim().isEmpty() )
+                    || ( montant == -1.0 ) ) {
+                erreur = true;
             } else {
-                erreur = "Ccommande créee avec succes";
+                erreur = false;
             }
         }
         // TODO Auto-generated method stub
-        this.getServletContext().getRequestDispatcher( "/WEB-INF/creerCommande.jsp" ).forward( request, response );
+        this.getServletContext().getRequestDispatcher( VUE ).forward( request, response );
     }
 
     /**

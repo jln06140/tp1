@@ -16,6 +16,17 @@ legend {
     color: #0568CD;
 }
 
+#menu
+{
+	display : flex;
+	flex-direction:column;
+}
+
+#menu a
+{
+	margin:15px 0;
+}
+
 form label {
     float: left;
     width: 200px;

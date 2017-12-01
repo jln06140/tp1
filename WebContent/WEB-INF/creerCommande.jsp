@@ -8,30 +8,9 @@
     </head>
     <body>
         <div>
-            <form method="get" action="creationCommande">
-                <fieldset>
-                    <legend>Informations client</legend>
-    
-                    <label for="nomClient">Nom <span class="requis">*</span></label>
-                    <input type="text" id="nomClient" name="nomClient" value="" size="20" maxlength="20" />
-                    <br />
-                    
-                    <label for="prenomClient">Prénom </label>
-                    <input type="text" id="prenomClient" name="prenomClient" value="" size="20" maxlength="20" />
-                    <br />
-    
-                    <label for="adresseClient">Adresse de livraison <span class="requis">*</span></label>
-                    <input type="text" id="adresseClient" name="adresseClient" value="" size="20" maxlength="20" />
-                    <br />
-    
-                    <label for="telephoneClient">Numéro de téléphone <span class="requis">*</span></label>
-                    <input type="text" id="telephoneClient" name="telephoneClient" value="" size="20" maxlength="20" />
-                    <br />
-                    
-                    <label for="emailClient">Adresse email</label>
-                    <input type="email" id="emailClient" name="emailClient" value="" size="20" maxlength="60" />
-                    <br />
-                </fieldset>
+            <form method="POST" action='<c:url value="afficherCommande"/>'>
+                <c:import url="/inc/inc_client_form.jsp"></c:import>
+                
                 <fieldset>
                     <legend>Informations commande</legend>
                     
@@ -64,25 +43,6 @@
             </form>
         </div>
         
-        <div>
-        	<p>
-        		${erreur == true ? 'Client crée avec succes' : 'Erreur - vous n\'avez pas remplis tous les champs obligatoires</br><a href="creaCommande">cliquer ici</a> pour acceder au formulaire de creation client'}
-        	</p>
-        	<p>Client</p>
-        	<p>Nom : ${client.nom }</p>
-        	<p>Prenom : ${client.prenom }</p>
-        	<p>Adresse : ${client.adresse }</p>
-        	<p>Telephone : ${client.telephone }</p>
-        	<p>Email : ${client.email }</p>
-        	
-        	<p>Commande</p>
-        	<p>Date : ${commande.date }</p>
-        	<p>Montant : ${commande.montant }</p>
-        	<p>Mode de paiement : ${commande.modePaiement }</p>
-        	<p>Status du paiement : ${commande.statutCommande } </p>
-        	<p>Mode de livraison : ${commande.modeLivraison }</p>
-        	<p>Status de livraison : ${commande.statusLivraison } </p>
-        	
-        </div>
+        
     </body>
 </html>

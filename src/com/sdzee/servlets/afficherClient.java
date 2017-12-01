@@ -12,16 +12,16 @@ import javax.servlet.http.HttpSession;
 import com.sdzee.beans.Client;
 
 /**
- * Servlet implementation class creationClient
+ * Servlet implementation class afficherClient
  */
-@WebServlet( "/creationClient" )
-public class creationClient extends HttpServlet {
+@WebServlet( "/afficherClient" )
+public class afficherClient extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public creationClient() {
+    public afficherClient() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,8 @@ public class creationClient extends HttpServlet {
     protected void doGet( HttpServletRequest request, HttpServletResponse response )
             throws ServletException, IOException {
 
-        final String VUE = "/WEB-INF/creerClient.jsp";
+        final String VUE = "/WEB-INF/afficheClient.jsp";
+        boolean erreur = false;
 
         String nom = request.getParameter( "nomClient" );
         String prenom = request.getParameter( "prenomClient" );
@@ -41,17 +42,16 @@ public class creationClient extends HttpServlet {
         String telephone = request.getParameter( "telephoneClient" );
         String email = request.getParameter( "emailClient" );
 
-        String erreur = "";
-
         if ( request.getParameterMap().isEmpty() ) {
             // pas de parama
+            erreur = true;
             System.out.println( "aucun paramètres" );
         } else {
             if ( ( nom != null && nom.trim().isEmpty() ) || ( adresse != null && adresse.trim().isEmpty() )
                     || ( telephone != null && telephone.trim().isEmpty() ) ) {
-                erreur = "Erreur - vous n\'avez pas remplis tous les champs obligatoires</br><a href=\"creaClient\">cliquer ici</a> pour acceder au formulaire de creation client";
+                erreur = true;
             } else {
-                erreur = "Client crée avec succes";
+                erreur = false;
             }
         }
 
